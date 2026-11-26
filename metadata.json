@@ -1,0 +1,6 @@
+{
+  "name": "SMC Speech — Диагностика [Р]",
+  "description": "Бесплатный диагностический Блок 0 научного речевого тренажера исправления звука [Р] у взрослых",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
