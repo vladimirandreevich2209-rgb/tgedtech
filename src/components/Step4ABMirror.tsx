@@ -9,7 +9,7 @@ import {
   SlidersHorizontal,
   Square,
 } from 'lucide-react';
-import step4AnatomyCompareImg from '@/step4-anatomy-compare.png';
+import step4AnatomyCompareImg from '@/step4-anatomy-compare.webp';
 import { NeckVibration } from '../types/diagnostic';
 import {
   decodeAudioBlob,

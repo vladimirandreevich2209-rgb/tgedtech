@@ -9,7 +9,7 @@ import {
   Square,
   Upload,
 } from 'lucide-react';
-import step3NeckSensorImg from '@/step3-neck-sensor.png';
+import step3NeckSensorImg from '@/step3-neck-sensor.webp';
 import { NeckVibration } from '../types/diagnostic';
 import {
   audioBufferToWavBlob,

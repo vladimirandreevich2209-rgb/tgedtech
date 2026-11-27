@@ -1,5 +1,5 @@
 import { AlertTriangle, ArrowRight, CheckCircle2 } from 'lucide-react';
-import step2FrenulumImg from '@/step2-frenulum.png';
+import step2FrenulumImg from '@/step2-frenulum.webp';
 import { FrenulumStatus } from '../types/diagnostic';
 import { haptic } from '../utils/haptic';
 

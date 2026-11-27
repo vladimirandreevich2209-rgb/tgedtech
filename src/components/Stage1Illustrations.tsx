@@ -1,9 +1,9 @@
-import step1AnchorImg from '@/stage1-step1-anchor.png';
-import step2FlapPoster from '@/stage1-step2-flap.png';
+import step1AnchorImg from '@/stage1-step1-anchor.webp';
+import step2FlapPoster from '@/stage1-step2-flap.webp';
 import flapLoopVideo from '@/stage1-flap-loop.mp4';
-import step3KhvattsevImg from '@/stage1-step3-khvattsev.png';
-import step4MushroomDropImg from '@/stage1-step4-mushroom-drop.png';
-import step5CoachmanPoster from '@/stage1-step5-coachman.png';
+import step3KhvattsevImg from '@/stage1-step3-khvattsev.webp';
+import step4MushroomDropImg from '@/stage1-step4-mushroom-drop.webp';
+import step5CoachmanPoster from '@/stage1-step5-coachman.webp';
 import coachmanLoopVideo from '@/stage1-coachman-loop.mp4';
 import { Stage1StepNumber } from '../types/stage1';
 

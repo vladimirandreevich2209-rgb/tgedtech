@@ -16,7 +16,7 @@ import {
   VolumeX,
   X,
 } from 'lucide-react';
-import coachAvatarImg from '@/coach-avatar.png';
+import coachAvatarImg from '@/coach-avatar.webp';
 import { STAGE1_STEPS } from '../data/stage1Steps';
 import {
   DayHistoryEntry,

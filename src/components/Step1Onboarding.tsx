@@ -1,5 +1,5 @@
 import { Activity, ArrowRight, Bell, CheckCircle2, Mic, SlidersHorizontal } from 'lucide-react';
-import coachAvatarImg from '@/coach-avatar.png';
+import coachAvatarImg from '@/coach-avatar.webp';
 import { haptic } from '../utils/haptic';
 
 interface Step1OnboardingProps {

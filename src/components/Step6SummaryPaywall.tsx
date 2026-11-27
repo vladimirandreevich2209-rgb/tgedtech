@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   Square,
 } from 'lucide-react';
-import coachAvatarImg from '@/coach-avatar.png';
+import coachAvatarImg from '@/coach-avatar.webp';
 import { DiagnosticState } from '../types/diagnostic';
 import {
   audioBufferToWavBlob,

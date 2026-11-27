@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Bell, X } from 'lucide-react';
 import { StepHeader } from './components/StepHeader';
 import { Step1Onboarding } from './components/Step1Onboarding';
@@ -7,7 +7,10 @@ import { Step3TactileRecord } from './components/Step3TactileRecord';
 import { Step4ABMirror } from './components/Step4ABMirror';
 import { Step5EarCalibration } from './components/Step5EarCalibration';
 import { Step6SummaryPaywall } from './components/Step6SummaryPaywall';
-import { Stage1Training } from './components/Stage1Training';
+
+const Stage1Training = lazy(() =>
+  import('./components/Stage1Training').then((m) => ({ default: m.Stage1Training }))
+);
 import {
   DiagnosticState,
   DiagnosticStep,
@@ -100,7 +103,15 @@ export default function App() {
 
         <main className="flex-1 flex flex-col min-w-0">
           {appMode === 'stage1' ? (
-            <Stage1Training onActiveSessionChange={setIsStage1SessionActive} />
+            <Suspense
+              fallback={
+                <div className="flex-1 flex items-center justify-center px-4 py-12 text-xs text-[#63666A]">
+                  Загрузка тренажёра...
+                </div>
+              }
+            >
+              <Stage1Training onActiveSessionChange={setIsStage1SessionActive} />
+            </Suspense>
           ) : (
             <>
               {state.step === 1 && (
