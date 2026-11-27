@@ -103,6 +103,50 @@ function optimizeOversizedVideos() {
   }
 }
 
+function buildBrandSvg({ maskable = false } = {}) {
+  const ringRadius = maskable ? 132 : 168;
+  const dotRadius = maskable ? 52 : 66;
+  const strokeWidth = maskable ? 24 : 30;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#141619"/>
+  <circle cx="256" cy="256" r="${ringRadius}" fill="none" stroke="#0F5C5C" stroke-width="${strokeWidth}"/>
+  <circle cx="256" cy="256" r="${dotRadius}" fill="#2DD4BF"/>
+</svg>`;
+}
+
+async function ensurePwaIcons() {
+  const publicDir = path.join(rootDir, 'public');
+  fs.mkdirSync(publicDir, { recursive: true });
+
+  const svgPath = path.join(publicDir, 'icon.svg');
+  if (!fs.existsSync(svgPath)) {
+    const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#141619"/>
+  <circle cx="256" cy="256" r="168" fill="none" stroke="#0F5C5C" stroke-width="30"/>
+  <circle cx="256" cy="256" r="66" fill="#2DD4BF"/>
+</svg>`;
+    fs.writeFileSync(svgPath, iconSvg, 'utf8');
+  }
+
+  const standardSvg = Buffer.from(buildBrandSvg({ maskable: false }));
+  const maskableSvg = Buffer.from(buildBrandSvg({ maskable: true }));
+
+  const targets = [
+    { file: 'pwa-192x192.png', size: 192, svg: standardSvg },
+    { file: 'pwa-512x512.png', size: 512, svg: standardSvg },
+    { file: 'pwa-maskable-512x512.png', size: 512, svg: maskableSvg },
+    { file: 'apple-touch-icon.png', size: 180, svg: standardSvg },
+  ];
+
+  for (const target of targets) {
+    const outPath = path.join(publicDir, target.file);
+    if (fs.existsSync(outPath)) continue;
+    await sharp(target.svg).resize(target.size, target.size).png().toFile(outPath);
+    console.log(`[pwa] Generated public/${target.file}`);
+  }
+}
+
 await ensureTelegramSdk();
+await ensurePwaIcons();
 await ensureWebpImages();
 optimizeOversizedVideos();

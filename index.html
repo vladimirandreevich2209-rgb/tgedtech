@@ -3,20 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141619'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%232DD4BF'/%3E%3C/svg%3E" />
-    <script src="./telegram-web-app.js"></script>
-    <script>
-      try {
-        var wa = window.Telegram && window.Telegram.WebApp;
-        if (wa) {
-          wa.ready && wa.ready();
-          wa.expand && wa.expand();
-          if (wa.isVersionAtLeast && wa.isVersionAtLeast('7.7') && wa.disableVerticalSwipes) {
-            wa.disableVerticalSwipes();
-          }
-        }
-      } catch (e) {}
-    </script>
+    <meta name="theme-color" content="#F5F4F0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="SMC Speech" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
     <title>SMC Speech — Диагностика звука [Р] за 3 минуты</title>
     <meta name="description" content="Бесплатный диагностический Блок 0 научного речевого тренажера исправления звука [Р] у взрослых." />
     <meta property="og:title" content="SMC Speech — Диагностика звука [Р] за 3 минуты" />
@@ -24,25 +17,36 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <script>
-      window.addEventListener('load', function () {
-        setTimeout(function () {
-          var link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap';
-          document.head.appendChild(link);
-        }, 0);
-      });
+      (function () {
+        var h = window.location.hash || '';
+        var s = window.location.search || '';
+        if (
+          h.indexOf('tgWebAppData') !== -1 ||
+          s.indexOf('tgWebAppStartParam') !== -1 ||
+          typeof window.TelegramWebviewProxy !== 'undefined'
+        ) {
+          var el = document.createElement('script');
+          el.async = true;
+          el.src = './telegram-web-app.js';
+          el.onload = function () {
+            try {
+              var wa = window.Telegram && window.Telegram.WebApp;
+              if (wa) {
+                wa.ready && wa.ready();
+                wa.expand && wa.expand();
+                if (wa.isVersionAtLeast && wa.isVersionAtLeast('7.7') && wa.disableVerticalSwipes) {
+                  wa.disableVerticalSwipes();
+                }
+              }
+            } catch (e) {}
+          };
+          document.head.appendChild(el);
+        }
+      })();
     </script>
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
