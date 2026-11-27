@@ -19,6 +19,21 @@ const IMAGE_TARGETS = [
 
 const VIDEO_TARGETS = ['stage1-flap-loop.mp4', 'stage1-coachman-loop.mp4'];
 
+async function ensureTelegramSdk() {
+  const publicDir = path.join(rootDir, 'public');
+  const sdkPath = path.join(publicDir, 'telegram-web-app.js');
+  if (fs.existsSync(sdkPath) && fs.statSync(sdkPath).size > 10_000) return;
+
+  fs.mkdirSync(publicDir, { recursive: true });
+  const res = await fetch('https://telegram.org/js/telegram-web-app.js');
+  if (!res.ok) {
+    throw new Error(`Failed to fetch telegram-web-app.js: HTTP ${res.status}`);
+  }
+  const code = await res.text();
+  fs.writeFileSync(sdkPath, code, 'utf8');
+  console.log(`[tg-sdk] Downloaded public/telegram-web-app.js (${code.length} bytes)`);
+}
+
 async function ensureWebpImages() {
   for (const item of IMAGE_TARGETS) {
     const webpPath = path.join(rootDir, `${item.name}.webp`);
@@ -88,5 +103,6 @@ function optimizeOversizedVideos() {
   }
 }
 
+await ensureTelegramSdk();
 await ensureWebpImages();
 optimizeOversizedVideos();
